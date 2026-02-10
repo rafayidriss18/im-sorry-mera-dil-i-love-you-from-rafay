@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>for Tanisha</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #ffe4ef, #ffb6c1, #b11226);
+  font-family: Arial, sans-serif;
+  color: #4a0d1f;
+  text-align: center;
+  transition: background 4s ease;
+}
+
+.screen { display: none; padding: 40px 20px; animation: fade 1.2s ease; }
+.screen.active { display: block; }
+
+@keyframes fade { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+button {
+  background: linear-gradient(135deg, #ffb6c1, #c21807);
+  color: white;
+  border: none;
+  border-radius: 35px;
+  padding: 14px 26px;
+  margin: 12px;
+  font-size: 16px;
+  box-shadow: 0 0 18px rgba(255,182,193,0.8);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+button:hover { transform: scale(1.1); box-shadow: 0 0 30px rgba(255,182,193,1); }
+button:active { transform: scale(0.92); }
+
+.float { position: fixed; pointer-events: none; animation: floatUp linear infinite; }
+@keyframes floatUp { from { transform: translateY(100vh); opacity: 0; } to { transform: translateY(-10vh); opacity: 1; } }
+
+.burst { position: fixed; font-size: 28px; animation: burst 1s ease forwards; }
+@keyframes burst { from { transform: scale(0); opacity: 1; } to { transform: scale(2.5); opacity: 0; } }
+
+.us { font-size: 42px; animation: breathe 4s ease-in-out infinite; margin-top: 30px; }
+@keyframes breathe { 0% { transform: scale(1); opacity: 0.7; } 50% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 0.7; } }
+
+.whisper { font-size: 13px; opacity: 0.6; margin-top: 20px; }
+
+#animationContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 300px;
+  overflow: visible;
+}
+
+.hug {
+  position: relative;
+  width: 60px;
+  height: 100px;
+  margin: 0 5px;
+}
+
+.head {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #4a0d1f;
+  position: absolute;
+  top: 0;
+}
+
+.body {
+  width: 15px;
+  height: 60px;
+  background: #4a0d1f;
+  position: absolute;
+  top: 25px;
+  left: 5px;
+  border-radius: 10px;
+}
+
+@keyframes moveCloser {
+  0% { transform: translateX(0) scale(1); }
+  50% { transform: translateX(-10px) scale(1.05); }
+  100% { transform: translateX(0) scale(1); }
+}
+
+@keyframes leanHeads {
+  0% { transform: rotate(0deg); }
+  50% { transform: rotate(-8deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.hug-animation { animation: moveCloser 4s ease-in-out infinite alternate; }
+.head-animation { animation: leanHeads 4s ease-in-out infinite alternate; }
+</style>
+</head>
+
+<body>
+
+<script>
+let current = 1;
+
+// floating hearts & butterflies
+function float(symbol, speed, color){
+  const e = document.createElement("div")
+  e.className = "float"
+  e.innerText = symbol
+  e.style.left = Math.random()*100+"vw"
+  e.style.fontSize = Math.random()*22+18+"px"
+  e.style.color = color || "#ffb6c1"
+  e.style.animationDuration = speed+"s"
+  document.body.appendChild(e)
+  setTimeout(()=>e.remove(),12000)
+}
+
+// burst on click
+function burst(x,y,color){
+  const b=document.createElement("div")
+  b.className="burst"
+  b.innerText="💗"
+  b.style.left=x+"px"
+  b.style.top=y+"px"
+  b.style.color=color || "#ffb6c1"
+  document.body.appendChild(b)
+  setTimeout(()=>b.remove(),1000)
+}
+
+document.addEventListener("click", e => burst(e.clientX,e.clientY,"#ffb6c1"))
+
+// screen navigation
+function show(n){
+  document.querySelector(".screen.active").classList.remove("active")
+  document.getElementById("s"+n).classList.add("active")
+  current = n
+}
+
+// mini animations for each option
+function animateChoice(type){
+  if(type === "sad"){
+    for(let i=0;i<15;i++) setTimeout(()=>float("💗",8,"#ffb6c1"),i*100)
+    for(let i=0;i<8;i++) setTimeout(()=>float("🦋",12,"#ffe4ef"),i*150)
+  } else if(type === "angry"){
+    for(let i=0;i<20;i++) setTimeout(()=>float("💗",6,"#c21807"),i*80)
+  } else if(type === "tired"){
+    for(let i=0;i<12;i++) setTimeout(()=>float("🦋",14,"#ffc0cb"),i*120)
+  } else if(type === "miss"){
+    for(let i=0;i<18;i++) setTimeout(()=>float("💗",10,"#ffdee6"),i*90)
+    for(let i=0;i<10;i++) setTimeout(()=>float("🦋",16,"#ffe4ef"),i*100)
+  } else if(type==="hug"){
+    for(let i=0;i<25;i++) setTimeout(()=>float("💗",7,"#ffb6c1"),i*50)
+    for(let i=0;i<12;i++) setTimeout(()=>float("🦋",13,"#ffc0cb"),i*80)
+  } else if(type==="soft"){
+    for(let i=0;i<20;i++) setTimeout(()=>float("🦋",12,"#ffe4ef"),i*60)
+    for(let i=0;i<12;i++) setTimeout(()=>float("💗",9,"#ffb6c1"),i*90)
+  } else if(type==="why"){
+    for(let i=0;i<30;i++) setTimeout(()=>float("💗",8,"#ffb6c1"),i*40)
+    for(let i=0;i<15;i++) setTimeout(()=>float("🦋",14,"#ffe4ef"),i*70)
+  }
+}
+
+// mood selection
+function mood(t){
+  animateChoice(t)
+  const text = {
+    sad:my dearest Tanisha im so sorry you are feeling so heavy and tired i wish i could take all your pain away i want to hold you gently and tell you its okay to feel everything and i am here for you always i love you more than words can hold and im sorry for every moment i made things harder,
+    angry:my love Tanisha im so sorry for the frustration i caused and for the times i didnt understand you i see your heart and i want to hold it carefully i love you endlessly and im sorry if i ever made you feel alone or unheard you mean everything to me,
+    tired:sweet Tanisha im so sorry you feel exhausted and overwhelmed let me carry some of your weight with my love rest here with me and feel how deeply i care for you i am here your Rafay forever and i love you endlessly,
+    miss:Tanisha my love im sorry for every second you felt my absence i miss you so deeply you are my everything my heart aches to be near you and to show you how much you mean to me i love you endlessly and i am sorry for any pain i caused
+  }
+  document.getElementById("s2").innerHTML =
+    <p>${text[t]}</p><button onclick="show(3)">continue</button>
+  show(2)
+}
+
+// choice selection
+function choice(i){
+  if(i===0) animateChoice("hug")
+  else if(i===1) animateChoice("soft")
+  else if(i===2) animateChoice("why")
+
+  const text = [
+    come here my love let me hold you tightly i am so sorry for hurting you even in the smallest ways i want to be your safe place your home your heart and soul i love you more than anything in this world,
+    Tanisha you are deeply loved even when the world feels heavy i am sorry for not saying it enough or showing you enough every day my love is yours forever and i promise to cherish you endlessly,
+    my sweet Tanisha i love you because your heart is rare and beautiful because you feel deeply and see the world with so much love you are my everything and i am endlessly grateful for you i am so sorry if i ever made you doubt that
+  ]
+  document.getElementById("s4").innerHTML =
+    <p>${text[i]}</p><button onclick="show(5)">next</button>
+  show(4)
+}
+
+// ending screen animation
+function playEndingAnimation(){
+  const container = document.getElementById("animationContainer");
+  container.innerHTML = "";
+
+  const left = document.createElement("div");
+  left.className = "hug hug-animation";
+  const leftHead = document.createElement("div");
+  leftHead.className = "head head-animation";
+  const leftBody = document.createElement("div");
+  leftBody.className = "body";
+  left.appendChild(leftHead);
+  left.appendChild(leftBody);
+
+  const right = document.createElement("div");
+  right.className = "hug hug-animation";
+  const rightHead = document.createElement("div");
+  rightHead.className = "head head-animation";
+  const rightBody = document.createElement("div");
+  rightBody.className = "body";
+  right.appendChild(rightHead);
+  right.appendChild(rightBody);
+
+  container.appendChild(left);
+  container.appendChild(right);
+}
+
+// ending screen
+function ending(){
+  document.body.style.background="#ffd6e7"
+  show(6)
+  playEndingAnimation()
+}
+
+// replay
+function replay(){ show(1) }
+</script>
+
+<!-- screens -->
+<div id="s1" class="screen active">
+  <p>
+my sweet Tanisha i am so happy to see you here my love you dont have to hide your feelings tell me what is in your heart right now
+  </p>
+  <button onclick="mood('sad')">sad</button>
+  <button onclick="mood('angry')">angry</button>
+  <button onclick="mood('tired')">tired</button>
+  <button onclick="mood('miss')">miss you</button>
+</div>
+
+<div id="s2" class="screen"></div>
+
+<div id="s3" class="screen">
+  <p>
+im here with you Tanisha i want to hold you and listen to your heart what do you need from me my love
+  </p>
+  <button onclick="choice(0)">hug me</button>
+  <button onclick="choice(1)">something soft</button>
+  <button onclick="choice(2)">why you love me</button>
+</div>
+
+<div id="s4" class="screen"></div>
+
+<div id="s5" class="screen">
+  <p>
+stay here for a moment my love and feel the warmth around you let my heart reach yours and let us be together for this little time
+  </p>
+  <button onclick="ending()">im here</button>
+</div>
+
+<div id="s6" class="screen">
+  <div id="animationContainer"></div>
+  <p style="margin-top:20px;">
+Tanisha my love i dont need you to forgive me right now i dont need everything to be okay i just need you to know that i love you with all of my heart that im deeply sorry for any hurt i caused and that my heart chooses you quietly every single day no rush no pressure just me loving you forever and always  
+from Rafay your love im sorry
+  </p>
+  <div class="whisper">tanishuu</div>
+  <button onclick="replay()">replay</button>
+</div>
+
+</body>
+</html>
